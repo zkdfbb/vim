@@ -3,7 +3,7 @@
 ### 安装方法
 
 ```
-git clone --recursive https://github.com/zkdfbb/vim.git ~/.vim && (echo | vim +BundleInstall +qall)
+git clone --recursive https://github.com/zkdfbb/vim.git ~/.vim && (echo | vim +PlugInstall +qall)
 ```
 
 ### 插件说明
