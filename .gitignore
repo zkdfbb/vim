@@ -1,4 +1,5 @@
 plugged
+update.sh
 *.pyc
 *.log
 

@@ -165,8 +165,6 @@ endif
 
 syntax on                                              " 语法高亮
 filetype on                                            " 侦测文件类型
-filetype plugin on                                     " 载入文件类型插件
-filetype indent on                                     " 为特定文件类型载入相关缩进文件
 filetype plugin indent on                              " 打开文件类型检测, 加了这句才可以用智能补全
 set completeopt=longest,menu                           " 关掉智能补全时的预览窗口
 autocmd FileType php set omnifunc=phpcomplete                               " PHP语法提示
@@ -204,7 +202,7 @@ endfunction
 "新建文件后，自动定位到文件末尾
 autocmd BufNewFile * normal G
 " 高亮显示普通txt文件（需要txt.vim脚本）
-au BufRead,BufNewFile *  setfiletype txt
+autocmd BufRead,BufNewFile *  setfiletype txt
 "如果是新建的php文件，则自动定位到最后第二行
 "autocmd BufNewFile *.php normal k
 "读入python文件，设置缩进格式
