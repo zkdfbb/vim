@@ -48,7 +48,6 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-
 call plug#end()            " required
 
 filetype plugin indent on    " required
@@ -540,7 +539,6 @@ vim.current.line = rstring.encode('utf-8')
 EOF
 endfunction
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 全角半角转换
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -815,7 +813,7 @@ let g:Powerline_stl_path_style = 'full'
 let g:ycm_complete_in_comments=1
 " 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
 let g:ycm_confirm_extra_conf=0
-let g:ycm_global_ycm_extra_conf ='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 " 开启 YCM 基于标签引擎
 let g:ycm_collect_identifiers_from_tags_files=1
 " YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
@@ -833,6 +831,10 @@ let g:ycm_key_invoke_completion = '<M-;>'
 " 设置转到定义处的快捷键为ALT + G，这个功能非常赞
 ""nmap <M-g> :YcmCompleter GoToDefinitionElseDeclaration <C-R>=expand("<cword>")<CR><CR>
 nnoremap <C-\> :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+let g:ycm_goto_buffer_command = 'horizontal-split'
+nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-indent-guides
@@ -957,7 +959,7 @@ let g:vim_json_syntax_conceal = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ale
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ale_sign_column_always = 0
+let g:ale_sign_column_always = 1
 let g:ale_set_highlights = 1
 "自定义error和warning图标
 let g:ale_sign_error = '✗'
@@ -979,8 +981,10 @@ nmap <Leader>s :ALEToggle<CR>
 "<Leader>d查看错误或警告的详细信息
 nmap <Leader>d :ALEDetail<CR>
 
+let g:ale_lint_on_enter = 1
 "let g:ale_lint_on_text_changed = 'never'
-"let g:ale_linters = { 'javascript': ['eslint'] }
+let g:ale_linters = { 'python': ['flake8'] }
+ let g:ale_python_flake8_args="--ignore=E501"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-multiple-cursors
