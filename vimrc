@@ -959,7 +959,7 @@ let g:vim_json_syntax_conceal = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ale
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ale_sign_column_always = 1
+let g:ale_sign_column_always = 0
 let g:ale_set_highlights = 1
 "自定义error和warning图标
 let g:ale_sign_error = '✗'
@@ -984,7 +984,7 @@ nmap <Leader>d :ALEDetail<CR>
 let g:ale_lint_on_enter = 1
 "let g:ale_lint_on_text_changed = 'never'
 let g:ale_linters = { 'python': ['flake8'] }
- let g:ale_python_flake8_args="--ignore=E501"
+ let g:ale_python_flake8_args="--ignore=E501,C901,E121"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-multiple-cursors
