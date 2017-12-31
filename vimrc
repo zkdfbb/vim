@@ -6,14 +6,14 @@ call plug#begin()
 
 Plug 'powerline/fonts', {'do': './install.sh'}
 "Plug 'gmarik/Vundle.vim'
-Plug 'maksimr/vim-jsbeautify'
-Plug 'majutsushi/tagbar'
+"Plug 'maksimr/vim-jsbeautify'
+"Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
 Plug 'w0rp/ale'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 "Plug 'Shougo/neocomplete.vim'
 "Plug 'ervandew/supertab'
-Plug 'klen/python-mode'
+Plug 'python-mode/python-mode'
 "Plug 'rkulla/pydiction'
 "Plug 'Lokaltog/vim-powerline'
 "Plug 'vim-scripts/xptemplate'
@@ -38,13 +38,13 @@ Plug 'flazz/vim-colorschemes'
 "Plug 'sophacles/vim-bundle-mako'
 "Plug 'groenewege/vim-less'
 "Plug 'elzr/vim-json'
-Plug 'godlygeek/tabular'
+"Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
-Plug 'motus/pig.vim'
-Plug 'derekwyatt/vim-scala'
-Plug 'vim-scripts/nginx.vim'
-Plug 'mhinz/vim-signify'
-Plug 'haya14busa/incsearch.vim'
+"Plug 'motus/pig.vim'
+"Plug 'derekwyatt/vim-scala'
+"Plug 'vim-scripts/nginx.vim'
+"Plug 'mhinz/vim-signify'
+"Plug 'haya14busa/incsearch.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -74,7 +74,6 @@ syntax enable
 "set ignorecase                               " 搜索忽略大小写
 "set go=                                      " 不要图形按钮
 "color asmanian2                              " 设置背景主题
-"set background=dark                          " 背景使用黑色
 "autocmd InsertLeave * se nocul               " 用浅色高亮当前行
 "autocmd InsertEnter * se cul                 " 用浅色高亮当前行
 ":set makeprg=g++\ --std=c++11\ -Wall\ \ %                 " make运行,有makefile直接输入:make
@@ -85,6 +84,7 @@ set foldcolumn=0                              " 折叠栏宽度,为0时表示没
 set foldlevel=999                             " 折叠级别,设置就为很大后不会自动折叠了
 set foldenable                                " 打开折叠
 
+set background=dark                          " 背景使用黑色
 set showcmd                                   " 输入的命令显示出来，看的清楚些
 set novisualbell                              " 不要闪烁
 set nocompatible                              " 去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限
@@ -157,7 +157,7 @@ if version >= 603
 endif
 
 " 设置配色方案
-colorscheme molokai_dark
+colorscheme peaksea
 if (has("gui_running"))
    set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
 endif
