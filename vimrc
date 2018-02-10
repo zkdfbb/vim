@@ -4,6 +4,7 @@ syntax off
 "set rtp+=~/.vim/bundle/Vundle.vim
 call plug#begin()
 
+Plug 'botvs/VimBotVS'
 Plug 'powerline/fonts', {'do': './install.sh'}
 "Plug 'gmarik/Vundle.vim'
 "Plug 'maksimr/vim-jsbeautify'
@@ -158,6 +159,7 @@ endif
 
 " 设置配色方案
 colorscheme peaksea
+set background=dark
 if (has("gui_running"))
    set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
 endif
