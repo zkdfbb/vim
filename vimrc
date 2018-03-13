@@ -11,7 +11,7 @@ Plug 'powerline/fonts', {'do': './install.sh'}
 "Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
 Plug 'w0rp/ale'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
 "Plug 'Shougo/neocomplete.vim'
 "Plug 'ervandew/supertab'
 Plug 'python-mode/python-mode'
