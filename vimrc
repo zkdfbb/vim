@@ -30,6 +30,7 @@ call plug#begin()
 "Plug 'vim-scripts/nginx.vim'
 "Plug 'haya14busa/incsearch.vim'
 "Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
+"Plug 'python-mode/python-mode', {'on': []}
 
 Plug 'liuchengxu/space-vim-dark'
 Plug 'mhinz/vim-startify', {'on': 'Startify'}
@@ -39,7 +40,6 @@ Plug 'botvs/VimBotVS', {'on': []}
 Plug 'powerline/fonts', {'do': './install.sh', 'on': []}
 Plug 'w0rp/ale', {'on': []}
 Plug 'Valloric/YouCompleteMe', {'do': './install.py' , 'on': []}
-Plug 'python-mode/python-mode', {'on': []}
 Plug 'flazz/vim-colorschemes', {'on': []}
 Plug 'vim-airline/vim-airline', {'on': []}
 Plug 'vim-airline/vim-airline-themes', {'on': []}
