@@ -4,62 +4,84 @@ syntax off
 "set rtp+=~/.vim/bundle/Vundle.vim
 call plug#begin()
 
-Plug 'botvs/VimBotVS'
-Plug 'powerline/fonts', {'do': './install.sh'}
-"Plug 'gmarik/Vundle.vim'
 "Plug 'maksimr/vim-jsbeautify'
-"Plug 'majutsushi/tagbar'
-Plug 'scrooloose/nerdtree'
-Plug 'w0rp/ale'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 "Plug 'Shougo/neocomplete.vim'
 "Plug 'ervandew/supertab'
-Plug 'python-mode/python-mode'
-"Plug 'rkulla/pydiction'
 "Plug 'Lokaltog/vim-powerline'
 "Plug 'vim-scripts/xptemplate'
 "Plug 'nathanaelkane/vim-indent-guides'
-Plug 'flazz/vim-colorschemes'
 "Plug 'yonchu/accelerated-smooth-scroll'
 "Plug 'mattn/gist-vim'
 "Plug 'terryma/vim-multiple-cursors'
 "Plug 'dkprice/vim-easygrep'
 "Plug 'mbbill/fencview'
 "Plug 'fholgado/minibufexpl.vim'
-"Plug 'vim-scripts/genutils'
 "Plug 'vim-scripts/lookupfile'
 "Plug 'troydm/asyncfinder.vim'
-"Plug 'lukaszb/vim-web-indent'
-"Plug 'kevinw/pyflakes-vim'
-"Plug 'trusktr/seti.vim'
-"Plug 'scrooloose/syntastic'
 "Plug 'nvie/vim-flake8'
 "Plug 'mattn/emmet-vim'
 "Plug 'pangloss/vim-javascript'
 "Plug 'sophacles/vim-bundle-mako'
-"Plug 'groenewege/vim-less'
 "Plug 'elzr/vim-json'
 "Plug 'godlygeek/tabular'
 "Plug 'plasticboy/vim-markdown'
 "Plug 'motus/pig.vim'
 "Plug 'derekwyatt/vim-scala'
 "Plug 'vim-scripts/nginx.vim'
-"Plug 'mhinz/vim-signify'
 "Plug 'haya14busa/incsearch.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+"Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
+
 Plug 'liuchengxu/space-vim-dark'
+Plug 'mhinz/vim-startify', {'on': 'Startify'}
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'botvs/VimBotVS', {'on': []}
+Plug 'powerline/fonts', {'do': './install.sh', 'on': []}
+Plug 'w0rp/ale', {'on': []}
+Plug 'Valloric/YouCompleteMe', {'do': './install.py' , 'on': []}
+Plug 'python-mode/python-mode', {'on': []}
+Plug 'flazz/vim-colorschemes', {'on': []}
+Plug 'vim-airline/vim-airline', {'on': []}
+Plug 'vim-airline/vim-airline-themes', {'on': []}
 
 call plug#end()            " required
 
 filetype plugin indent on    " required
 syntax enable
 
-" Brief help
-" :PlugList       - lists configured plugins
-" :PlugInstall    - installs plugins; append `!` to update or just :PlugUpdate
-" :PlugSearch foo - searches for foo; append `!` to refresh local cache
-" :PlugClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 延迟加载
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! Load_Ale(timer) abort
+  call plug#load('ale')
+endfunction
+
+function! Load_Ycm(timer) abort
+  call plug#load('YouCompleteMe')
+endfunction
+
+function! Load_Pymode(timer) abort
+  call plug#load('python-mode')
+endfunction
+
+function! Load_Airline(timer) abort
+  call plug#load('vim-airline')
+  call plug#load('vim-airline-themes')
+endfunction
+
+call timer_start(100, 'Load_Ale')
+call timer_start(100, 'Load_Ycm')
+" call timer_start(100, 'Load_Pymode')
+call timer_start(100, 'Load_Airline')
+
+augroup spacevimStart
+  autocmd!
+  autocmd VimEnter *
+              \   if !argc()
+              \|    call plug#load('vim-startify')
+              \|    silent! Startify
+              \|  endif
+augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 显示相关
@@ -422,7 +444,7 @@ nmap <leader>v "+p
 nmap wq :wq<CR>
 nmap qq :q!<CR>
 
-nmap <C-m> :PymodeLintAuto<CR>
+nmap <C-m> :ALEFix<CR>
 nmap <C-k> :setlocal textwidth=500<CR>
 
 nmap <C-l> :ALEToggle<CR>
@@ -805,7 +827,7 @@ nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_completion_enabled = 1
 let g:ale_sign_column_always = 1
-let g:ale_set_highlights = 1
+let g:ale_set_highlights = 0
 "自定义error和warning图标
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚡'
@@ -816,7 +838,7 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_open_list = 1
+let g:ale_open_list = 0
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 "普通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
@@ -828,9 +850,11 @@ nmap <Leader>s :ALEToggle<CR>
 nmap <Leader>d :ALEDetail<CR>
 
 let g:ale_lint_on_enter = 1
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_linters = { 'python': ['flake8'] }
- let g:ale_python_flake8_args="--ignore=E501,C901,E121"
+"let g:ale_lint_on_text_changed = 'never'
+let g:ale_linters = { 'python': ['flake8', 'pylint'] }
+let b:ale_fixers = ['autopep8', 'yapf']
+let g:ale_python_flake8_args="--ignore=E501,C901,E121"
+let g:ale_python_pylint_options="--disable=C0111,C0103,R0902,W0703"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-airline
