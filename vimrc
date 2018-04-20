@@ -31,12 +31,12 @@ call plug#begin()
 "Plug 'haya14busa/incsearch.vim'
 "Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 "Plug 'python-mode/python-mode', {'on': []}
+"Plug 'botvs/VimBotVS', {'on': []}
+"Plug 'mhinz/vim-startify', {'on': 'Startify'}
 
 Plug 'liuchengxu/space-vim-dark'
-Plug 'mhinz/vim-startify', {'on': 'Startify'}
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
-Plug 'botvs/VimBotVS', {'on': []}
 Plug 'powerline/fonts', {'do': './install.sh', 'on': []}
 Plug 'w0rp/ale', {'on': []}
 Plug 'Valloric/YouCompleteMe', {'do': './install.py' , 'on': []}
@@ -71,17 +71,16 @@ endfunction
 
 call timer_start(100, 'Load_Ale')
 call timer_start(100, 'Load_Ycm')
-" call timer_start(100, 'Load_Pymode')
 call timer_start(100, 'Load_Airline')
 
-augroup spacevimStart
-  autocmd!
-  autocmd VimEnter *
-              \   if !argc()
-              \|    call plug#load('vim-startify')
-              \|    silent! Startify
-              \|  endif
-augroup END
+" augroup spacevimStart
+"   autocmd!
+"   autocmd VimEnter *
+"               \   if !argc()
+"               \|    call plug#load('vim-startify')
+"               \|    silent! Startify
+"               \|  endif
+" augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 显示相关
