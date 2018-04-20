@@ -11,7 +11,7 @@ Plug 'powerline/fonts', {'do': './install.sh'}
 "Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
 Plug 'w0rp/ale'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 "Plug 'Shougo/neocomplete.vim'
 "Plug 'ervandew/supertab'
 Plug 'python-mode/python-mode'
@@ -40,7 +40,7 @@ Plug 'flazz/vim-colorschemes'
 "Plug 'groenewege/vim-less'
 "Plug 'elzr/vim-json'
 "Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+"Plug 'plasticboy/vim-markdown'
 "Plug 'motus/pig.vim'
 "Plug 'derekwyatt/vim-scala'
 "Plug 'vim-scripts/nginx.vim'
@@ -48,6 +48,7 @@ Plug 'plasticboy/vim-markdown'
 "Plug 'haya14busa/incsearch.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'liuchengxu/space-vim-dark'
 
 call plug#end()            " required
 
@@ -77,8 +78,8 @@ syntax enable
 "color asmanian2                              " 设置背景主题
 "autocmd InsertLeave * se nocul               " 用浅色高亮当前行
 "autocmd InsertEnter * se cul                 " 用浅色高亮当前行
-":set makeprg=g++\ --std=c++11\ -Wall\ \ %                 " make运行,有makefile直接输入:make
-:set makeprg=g++\ -o\ %<\ %\ --std=c++11\ -Wall\ -g        " make运行,有makefile直接输入:make
+"set makeprg=g++\ --std=c++11\ -Wall\ \ %                 " make运行,有makefile直接输入:make
+set makeprg=g++\ -o\ %<\ %\ --std=c++11\ -Wall\ -g        " make运行,有makefile直接输入:make
 
 "set foldmethod=indent                        " 折叠方式
 set foldcolumn=0                              " 折叠栏宽度,为0时表示没有折叠栏
@@ -158,7 +159,8 @@ if version >= 603
 endif
 
 " 设置配色方案
-colorscheme peaksea
+" colorscheme peaksea
+colorscheme space-vim-dark
 set background=dark
 if (has("gui_running"))
    set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
@@ -246,7 +248,7 @@ function AddTitle()
     if &filetype == 'python'
         call append(3, "'''")
         call append(4, "Author: zhangkai")
-        call append(5, "Email: zhangkai@cmcm.com")
+        call append(5, "Email: kai.zhang1@nio.com")
         call append(6, "Last modified: ".strftime("%Y-%m-%d %H:%M:%S"))
         call append(7, "'''")
         call append(8, "")
@@ -254,7 +256,7 @@ function AddTitle()
         call append(3, "\##############################################")
         call append(4, "\#")
         call append(5, "\#  Author: zhangkai")
-        call append(6, "\#  Email: zhangkai@cmcm.com")
+        call append(6, "\#  Email: kai.zhang1@nio.com")
         call append(7, "\#  Last modified: ".strftime("%Y-%m-%d %H:%M:%S"))
         call append(8, "\#")
         call append(9, "\##############################################")
@@ -263,7 +265,7 @@ function AddTitle()
         call append(0, "/**********************************************")
         call append(1, "*")
         call append(2, "*  Author: zhangkai")
-        call append(3, "*  Email: zhangkai@cmcm.com ")
+        call append(3, "*  Email: kai.zhang1@nio.com ")
         call append(4, "*  Filename: ".expand("%"))
         call append(5, "*  Last modified: ".strftime("%Y-%m-%d %H:%M:%S"))
         call append(6, "*")
@@ -367,15 +369,14 @@ func SetTitle()
         call append(1,'<html lang="zh_CN">')
         call append(2,'<head>')
         call append(3,'<meta charset="utf-8">')
-        call append(4,'<meta http-equiv="mobile-agent" content="format=html5;url=http://">')
-        call append(5,'<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">')
-        call append(6,'<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">')
-        call append(7,'<meta name="keywords" content="">')
-        call append(8,'<meta name="description" content="">')
-        call append(9,'<link rel="stylesheet" href="/style.css">')
-        call append(10,'<title></title>')
-        call append(11,'</head>')
-        call append(12,'<body>')
+        call append(4,'<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">')
+        call append(5,'<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">')
+        call append(6,'<meta name="keywords" content="">')
+        call append(7,'<meta name="description" content="">')
+        call append(8,'<link rel="stylesheet" href="/style.css">')
+        call append(9,'<title></title>')
+        call append(10,'</head>')
+        call append(11,'<body>')
         call append(line('$'),'</body>')
         call append(line('$'),'</html>')
 
@@ -515,7 +516,6 @@ endfunc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 全角半角转换
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 function! Q2B()
 python << EOF
 import vim
@@ -540,115 +540,6 @@ for uchar in ustring:
 vim.current.line = rstring.encode('utf-8')
 EOF
 endfunction
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 全角半角转换
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ywpunc = {
-            \'''':['‘', '’'],
-            \'"':['“', '”'],
-            \'...' : '……',
-            \'!': '！',
-            \',': '，',
-            \'.': '。',
-            \'`' : '｀',
-            \':' : '：',
-            \'(' : '（',
-            \')' : '）',
-            \'[' : '［',
-            \']' : '］',
-            \'<' : '＜',
-            \'>' : '＞',
-            \'-' : '－',
-            \'_' : '＿',
-            \'=' : '＝',
-            \'*' : '＊',
-            \'&' : '＆',
-            \'$' : '￥',
-            \'@' : '＠',
-            \'#' : '＃',
-            \'^' : '＾',
-            \'\\' : '＼',
-            \'/' : '／',
-            \'+' : '＋',
-            \';' : '；',
-            \'?' : '？',
-            \'%' : '％',
-            \' ' : '　',
-            \'{' : '｛',
-            \'}' : '｝',
-            \'1' : '１',
-            \'2' : '２',
-            \'3' : '３',
-            \'4' : '４',
-            \'5' : '５',
-            \'6' : '６',
-            \'7' : '７',
-            \'8' : '８',
-            \'9' : '９',
-            \'0' : '０',
-            \'a' : 'ａ',
-            \'b' : 'ｂ',
-            \'c' : 'ｃ',
-            \'d' : 'ｄ',
-            \'e' : 'ｅ',
-            \'f' : 'ｆ',
-            \'g' : 'ｇ',
-            \'h' : 'ｈ',
-            \'i' : 'ｉ',
-            \'j' : 'ｊ',
-            \'k' : 'ｋ',
-            \'l' : 'ｌ',
-            \'m' : 'ｍ',
-            \'n' : 'ｎ',
-            \'o' : 'ｏ',
-            \'p' : 'ｐ',
-            \'q' : 'ｑ',
-            \'r' : 'ｒ',
-            \'s' : 'ｓ',
-            \'t' : 'ｔ',
-            \'u' : 'ｕ',
-            \'v' : 'ｖ',
-            \'w' : 'ｗ',
-            \'x' : 'ｘ',
-            \'y' : 'ｙ',
-            \'z' : 'ｚ',
-            \'A' : 'Ａ',
-            \'B' : 'Ｂ',
-            \'C' : 'Ｃ',
-            \'D' : 'Ｄ',
-            \'E' : 'Ｅ',
-            \'F' : 'Ｆ',
-            \'G' : 'Ｇ',
-            \'H' : 'Ｈ',
-            \'I' : 'Ｉ',
-            \'J' : 'Ｊ',
-            \'K' : 'Ｋ',
-            \'L' : 'Ｌ',
-            \'M' : 'Ｍ',
-            \'N' : 'Ｎ',
-            \'O' : 'Ｏ',
-            \'P' : 'Ｐ',
-            \'Q' : 'Ｑ',
-            \'R' : 'Ｒ',
-            \'S' : 'Ｓ',
-            \'T' : 'Ｔ',
-            \'U' : 'Ｕ',
-            \'V' : 'Ｖ',
-            \'W' : 'Ｗ',
-            \'X' : 'Ｘ',
-            \'Y' : 'Ｙ',
-            \'Z' : 'Ｚ',
-             \}
-let g:ywpair = 1
-""vmap <C-m> s<C-r>=Yw_strzhpunc2enpunc(@", '')<CR><ESC>
-""nmap <C-m> yls<C-r>=Yw_strzhpunc2enpunc(@", '')<CR><ESC>
-
-if !exists("g:ywpair")
-     let s:ywpair = 0
-else
-     let s:ywpair = g:ywpair
-endif
 
 function Yw_strzhpunc2enpunc(str, m) " {{{ 标点中英互换
      if !exists("g:ywpunc") || a:str == ''
@@ -755,14 +646,6 @@ let g:netrw_list_hide= '^\..*'
 let NERDTreeIgnore=['\.pyc$', '\~$']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" minibufexpl
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " python-mode
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:pymode_rope_goto_definition_bind = "<C-]>"
@@ -788,16 +671,7 @@ let g:pymode_rope_regenerate_on_write = 1
 let g:pymode_rope_goto_definition_bind = '<leader>g'
 let g:pymode_rope_goto_definition_cmd = 'vnew'
 let g:pymode_rope_rename_bind = '<F2>' "改名的
-
-"let g:pymode_run = 1
-"let g:pymode_run_bind = '<F5>'
-"Folding
 let g:pymode_folding = 0 "这个是一打开的时候，就折叠的
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" pydiction
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " powerline
@@ -838,136 +712,106 @@ let g:ycm_goto_buffer_command = 'horizontal-split'
 nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-indent-guides
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:indent_guides_enable_on_vim_startup = 0
-let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=black
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
-nmap <silent> <C-i> <Plug>IndentGuidesToggle
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Gist
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:gist_post_private = 1
-let g:gist_open_browser_after_post = 1   " 创建后直接打开浏览器查看
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" superTab
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:SuperTabDefaultCompletionType = "<c-n>"
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" fencview
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:fencview_autodetect = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" lookupfile
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:LookupFile_MinPatLength = 2               "最少输入2个字符才开始查找
-let g:LookupFile_PreserveLastPattern = 0        "不保存上次查找的字符串
-let g:LookupFile_PreservePatternHistory = 1     "保存查找历史
-let g:LookupFile_AlwaysAcceptFirst = 1          "回车打开第一个匹配项目
-let g:LookupFile_AllowNewFiles = 0              "不允许创建不存在的文件
-"if filereadable("./filenametags")                "设置tag文件的名字
-"let g:LookupFile_TagExpr = '"./filenametags"'
-"endif
-"映射LookupFile为,lk
-nmap <silent> <leader>lk :LUTags<cr>
-"映射LUBufs为,ll
-nmap <silent> <leader>ll :LUBufs<cr>
-"映射LUWalk为,lw
-nmap <silent> <leader>lw :LUWalk<cr>
-
-" lookup file with ignore case
-function! LookupFile_IgnoreCaseFunc(pattern)
-    let _tags = &tags
-    try
-        let &tags = eval(g:LookupFile_TagExpr)
-        let newpattern = '\c' . a:pattern
-        let tags = taglist(newpattern)
-    catch
-        echohl ErrorMsg | echo "Exception: " . v:exception | echohl NONE
-        return ""
-    finally
-        let &tags = _tags
-    endtry
-
-    " Show the matches for what is typed so far.
-    let files = map(tags, 'v:val["filename"]')
-    return files
-endfunction
-let g:LookupFile_LookupFunc = 'LookupFile_IgnoreCaseFunc'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" syntastic
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let python_highlight_all=1
-let g:syntastic_error_symbol='>>'
-let g:syntastic_warning_symbol='>'
-let g:syntastic_check_on_open=1
-let g:syntastic_check_on_wq=0
-let g:syntastic_enable_highlighting=1
-"let g:syntastic_ignore_files=[".*\.py$"]
-let g:syntastic_python_checkers=['pyflakes'] " 使用pyflakes,速度比pylint快
-let g:syntastic_javascript_checkers = ['jsl', 'jshint']
-let g:syntastic_html_checkers=['tidy', 'jshint']
-" 修改高亮的背景色, 适应主题
-highlight SyntasticErrorSign guifg=white guibg=black
-
-" to see error location list
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_loc_list_height = 5
-function! ToggleErrors()
-    let old_last_winnr = winnr('$')
-    lclose
-    if old_last_winnr == winnr('$')
-        " Nothing was closed, open syntastic error location panel
-        Errors
-    endif
-endfunction
-nnoremap <Leader>s :call ToggleErrors()<cr>
-nnoremap <Leader>sn :lnext<cr>
-nnoremap <Leader>sp :lprevious<cr>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" markdown
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:vim_markdown_folding_style_pythonic = 1
-let g:vim_markdown_folding_level = 6
-let g:vim_markdown_toc_autofit = 1
-let g:vim_markdown_math = 1
-let g:vim_markdown_frontmatter = 1
-let g:vim_markdown_toml_frontmatter = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" markdown-preview
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:mkdp_path_to_chrome = "google-chrome"
-let g:mkdp_auto_start = 0
-let g:mkdp_auto_open = 0
-let g:mkdp_auto_close = 1
-let g:mkdp_refresh_slow = 0
-let g:mkdp_command_for_global = 0
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-json
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:vim_json_syntax_conceal = 0
+"   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   " vim-indent-guides
+"   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   let g:indent_guides_enable_on_vim_startup = 0
+"   let g:indent_guides_auto_colors = 0
+"   autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=black
+"   autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
+"   nmap <silent> <C-i> <Plug>IndentGuidesToggle
+"
+"   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   " Gist
+"   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   let g:gist_post_private = 1
+"   let g:gist_open_browser_after_post = 1   " 创建后直接打开浏览器查看
+"
+"   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   " superTab
+"   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   let g:SuperTabDefaultCompletionType = "<c-n>"
+"
+"   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   " fencview
+"   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   let g:fencview_autodetect = 1
+"
+"   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   " lookupfile
+"   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   let g:LookupFile_MinPatLength = 2               "最少输入2个字符才开始查找
+"   let g:LookupFile_PreserveLastPattern = 0        "不保存上次查找的字符串
+"   let g:LookupFile_PreservePatternHistory = 1     "保存查找历史
+"   let g:LookupFile_AlwaysAcceptFirst = 1          "回车打开第一个匹配项目
+"   let g:LookupFile_AllowNewFiles = 0              "不允许创建不存在的文件
+"   "if filereadable("./filenametags")                "设置tag文件的名字
+"   "let g:LookupFile_TagExpr = '"./filenametags"'
+"   "endif
+"   "映射LookupFile为,lk
+"   nmap <silent> <leader>lk :LUTags<cr>
+"   "映射LUBufs为,ll
+"   nmap <silent> <leader>ll :LUBufs<cr>
+"   "映射LUWalk为,lw
+"   nmap <silent> <leader>lw :LUWalk<cr>
+"
+"   " lookup file with ignore case
+"   function! LookupFile_IgnoreCaseFunc(pattern)
+"       let _tags = &tags
+"       try
+"           let &tags = eval(g:LookupFile_TagExpr)
+"           let newpattern = '\c' . a:pattern
+"           let tags = taglist(newpattern)
+"       catch
+"           echohl ErrorMsg | echo "Exception: " . v:exception | echohl NONE
+"           return ""
+"       finally
+"           let &tags = _tags
+"       endtry
+"
+"       " Show the matches for what is typed so far.
+"       let files = map(tags, 'v:val["filename"]')
+"       return files
+"   endfunction
+"   let g:LookupFile_LookupFunc = 'LookupFile_IgnoreCaseFunc'
+"
+"   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   " markdown
+"   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   let g:vim_markdown_folding_style_pythonic = 1
+"   let g:vim_markdown_folding_level = 6
+"   let g:vim_markdown_toc_autofit = 1
+"   let g:vim_markdown_math = 1
+"   let g:vim_markdown_frontmatter = 1
+"   let g:vim_markdown_toml_frontmatter = 1
+"
+"   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   " markdown-preview
+"   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   let g:mkdp_path_to_chrome = "google-chrome"
+"   let g:mkdp_auto_start = 0
+"   let g:mkdp_auto_open = 0
+"   let g:mkdp_auto_close = 1
+"   let g:mkdp_refresh_slow = 0
+"   let g:mkdp_command_for_global = 0
+"
+"   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   " vim-json
+"   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   let g:vim_json_syntax_conceal = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ale
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ale_sign_column_always = 0
+let g:ale_completion_enabled = 1
+let g:ale_sign_column_always = 1
 let g:ale_set_highlights = 1
 "自定义error和warning图标
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚡'
 "在vim自带的状态栏中整合ale
 let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
+let g:airline#extensions#ale#enabled = 1
 "显示Linter名称,出错或警告等相关信息
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
@@ -984,31 +828,23 @@ nmap <Leader>s :ALEToggle<CR>
 nmap <Leader>d :ALEDetail<CR>
 
 let g:ale_lint_on_enter = 1
-"let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_text_changed = 'never'
 let g:ale_linters = { 'python': ['flake8'] }
  let g:ale_python_flake8_args="--ignore=E501,C901,E121"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-multiple-cursors
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_prev_key='<C-p>'
-let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<Esc>'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:airline_theme="luna"
-let g:airline#extensions#ale#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#whitespace#enabled = 0
-let g:airline#extensions#whitespace#symbol = '!'
-
-let g:airline_theme="molokai"
-let g:airline_powerline_fonts = 1
+"let g:airline_theme="luna"
+"let g:airline#extensions#ale#enabled = 1
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = '|'
+"let g:airline#extensions#whitespace#enabled = 0
+"let g:airline#extensions#whitespace#symbol = '!'
+"
+"let g:airline_theme="molokai"
+"let g:airline_powerline_fonts = 1
 "let g:airline_left_sep = '⮀'
 "let g:airline_left_alt_sep = '⮁'
 "let g:airline_right_sep = '⮂'
