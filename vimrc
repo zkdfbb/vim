@@ -38,11 +38,11 @@ Plug 'liuchengxu/space-vim-dark'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'powerline/fonts', {'do': './install.sh', 'on': []}
-Plug 'w0rp/ale', {'on': []}
+Plug 'w0rp/ale'
 Plug 'Valloric/YouCompleteMe', {'do': './install.py' , 'on': []}
 Plug 'flazz/vim-colorschemes', {'on': []}
-Plug 'vim-airline/vim-airline', {'on': []}
-Plug 'vim-airline/vim-airline-themes', {'on': []}
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()            " required
 
@@ -69,9 +69,9 @@ function! Load_Airline(timer) abort
   call plug#load('vim-airline-themes')
 endfunction
 
-call timer_start(100, 'Load_Ale')
 call timer_start(100, 'Load_Ycm')
-call timer_start(100, 'Load_Airline')
+" call timer_start(100, 'Load_Ale')
+" call timer_start(100, 'Load_Airline')
 
 " augroup spacevimStart
 "   autocmd!
@@ -838,8 +838,8 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_open_list = 0
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
+let g:ale_set_loclist = 1
+let g:ale_set_quickfix = 0
 "普通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
 nmap <C-k> <Plug>(ale_previous_wrap)
 nmap <C-j> <Plug>(ale_next_wrap)
@@ -848,12 +848,16 @@ nmap <Leader>s :ALEToggle<CR>
 "<Leader>d查看错误或警告的详细信息
 nmap <Leader>d :ALEDetail<CR>
 
+" http://pylint-messages.wikidot.com/all-codes
 let g:ale_lint_on_enter = 1
-"let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_text_changed = 1
 let g:ale_linters = { 'python': ['flake8', 'pylint'] }
 let b:ale_fixers = ['autopep8', 'yapf']
+let g:ale_fix_on_save = 1
 let g:ale_python_flake8_args="--ignore=E501,C901,E121"
-let g:ale_python_pylint_options="--disable=C0111,C0103,R0902,W0703"
+"let g:ale_python_pylint_options="--disable=C0111,C0103,R0902,W0703,C0321"
+let g:ale_python_pylint_options="--disable=C,R,W0703"
+let g:ale_python_autopep8_options="--ignore=E501"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-airline
