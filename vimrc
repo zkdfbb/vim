@@ -35,14 +35,14 @@ call plug#begin()
 "Plug 'mhinz/vim-startify', {'on': 'Startify'}
 
 Plug 'liuchengxu/space-vim-dark'
+Plug 'flazz/vim-colorschemes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'powerline/fonts', {'do': './install.sh', 'on': []}
 Plug 'w0rp/ale'
 Plug 'Valloric/YouCompleteMe', {'do': './install.py' , 'on': []}
-Plug 'flazz/vim-colorschemes', {'on': []}
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()            " required
 
@@ -443,10 +443,9 @@ nmap <leader>v "+p
 nmap wq :wq<CR>
 nmap qq :q!<CR>
 
+nmap <C-l> :ALEToggle<CR>
 nmap <C-m> :ALEFix<CR>
 nmap <C-k> :setlocal textwidth=500<CR>
-
-nmap <C-l> :ALEToggle<CR>
 
 " ,+c 全角半角切换
 map <leader>c :call Q2B()<CR>
@@ -733,6 +732,44 @@ let g:ycm_goto_buffer_command = 'horizontal-split'
 nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ale
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ale_completion_enabled = 1
+let g:ale_sign_column_always = 0
+let g:ale_set_highlights = 0
+"自定义error和warning图标
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚡'
+"在vim自带的状态栏中整合ale
+let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
+let g:airline#extensions#ale#enabled = 1
+"显示Linter名称,出错或警告等相关信息
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_open_list = 0
+let g:ale_set_loclist = 1
+let g:ale_set_quickfix = 0
+"普通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
+nmap <C-k> <Plug>(ale_previous_wrap)
+nmap <C-j> <Plug>(ale_next_wrap)
+"<Leader>s触发/关闭语法检查
+nmap <Leader>s :ALEToggle<CR>
+"<Leader>d查看错误或警告的详细信息
+nmap <Leader>d :ALEDetail<CR>
+
+" http://pylint-messages.wikidot.com/all-codes
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_text_changed = 1
+let g:ale_linters = { 'python': ['flake8', 'pylint'] }
+let b:ale_fixers = ['autopep8', 'yapf', 'remove_trailing_lines', 'trim_whitespace']
+let g:ale_fix_on_save = 0
+let g:ale_python_flake8_args="--ignore=E501,C901,E121"
+"let g:ale_python_pylint_options="--disable=C0111,C0103,R0902,W0703,C0321"
+let g:ale_python_pylint_options="--disable=C,R,W0703,W0217"
+let g:ale_python_autopep8_options="--ignore=E501"
+
 "   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   " vim-indent-guides
 "   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -821,58 +858,20 @@ nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
 "   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   let g:vim_json_syntax_conceal = 0
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ale
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ale_completion_enabled = 1
-let g:ale_sign_column_always = 1
-let g:ale_set_highlights = 0
-"自定义error和warning图标
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '⚡'
-"在vim自带的状态栏中整合ale
-let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
-let g:airline#extensions#ale#enabled = 1
-"显示Linter名称,出错或警告等相关信息
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_open_list = 0
-let g:ale_set_loclist = 1
-let g:ale_set_quickfix = 0
-"普通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
-nmap <C-k> <Plug>(ale_previous_wrap)
-nmap <C-j> <Plug>(ale_next_wrap)
-"<Leader>s触发/关闭语法检查
-nmap <Leader>s :ALEToggle<CR>
-"<Leader>d查看错误或警告的详细信息
-nmap <Leader>d :ALEDetail<CR>
-
-" http://pylint-messages.wikidot.com/all-codes
-let g:ale_lint_on_enter = 1
-let g:ale_lint_on_text_changed = 1
-let g:ale_linters = { 'python': ['flake8', 'pylint'] }
-let b:ale_fixers = ['autopep8', 'yapf']
-let g:ale_fix_on_save = 1
-let g:ale_python_flake8_args="--ignore=E501,C901,E121"
-"let g:ale_python_pylint_options="--disable=C0111,C0103,R0902,W0703,C0321"
-let g:ale_python_pylint_options="--disable=C,R,W0703"
-let g:ale_python_autopep8_options="--ignore=E501"
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-airline
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:airline_theme="luna"
-"let g:airline#extensions#ale#enabled = 1
-"let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#left_sep = ' '
-"let g:airline#extensions#tabline#left_alt_sep = '|'
-"let g:airline#extensions#whitespace#enabled = 0
-"let g:airline#extensions#whitespace#symbol = '!'
-"
-"let g:airline_theme="molokai"
-"let g:airline_powerline_fonts = 1
-"let g:airline_left_sep = '⮀'
-"let g:airline_left_alt_sep = '⮁'
-"let g:airline_right_sep = '⮂'
-"let g:airline_right_alt_sep = '⮃'
+"   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"    vim-airline
+"   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   let g:airline_theme="luna"
+"   let g:airline#extensions#ale#enabled = 1
+"   let g:airline#extensions#tabline#enabled = 1
+"   let g:airline#extensions#tabline#left_sep = ' '
+"   let g:airline#extensions#tabline#left_alt_sep = '|'
+"   let g:airline#extensions#whitespace#enabled = 0
+"   let g:airline#extensions#whitespace#symbol = '!'
+"   
+"   let g:airline_theme="molokai"
+"   let g:airline_powerline_fonts = 1
+"   let g:airline_left_sep = '⮀'
+"   let g:airline_left_alt_sep = '⮁'
+"   let g:airline_right_sep = '⮂'
+"   let g:airline_right_alt_sep = '⮃'
