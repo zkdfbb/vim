@@ -760,7 +760,13 @@ nmap <Leader>d :ALEDetail<CR>
 let g:ale_lint_on_enter = 1
 let g:ale_lint_on_text_changed = 1
 let g:ale_linters = { 'python': ['flake8', 'pylint'] }
-let b:ale_fixers = ['autopep8', 'yapf', 'remove_trailing_lines', 'trim_whitespace']
+let g:ale_linters = { 'python': ['flake8', 'pylint'] , 'javascript': ['eslint']}
+let b:ale_fixers = {'python': ['autopep8', 'yapf', 'remove_trailing_lines', 'trim_whitespace'], 'javascript': ['eslint']}
+let g:ale_pattern_options = {
+\ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
+\ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
+\}
+let g:ale_pattern_options_enabled = 1
 let g:ale_fix_on_save = 0
 let g:ale_python_flake8_args="--ignore=E501,C901,E121"
 "let g:ale_python_pylint_options="--disable=C0111,C0103,R0902,W0703,C0321"
