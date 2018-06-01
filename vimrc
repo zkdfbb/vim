@@ -107,13 +107,18 @@ set foldcolumn=0                              " 折叠栏宽度,为0时表示没
 set foldlevel=999                             " 折叠级别,设置就为很大后不会自动折叠了
 set foldenable                                " 打开折叠
 
+set undodir=~/.vim_undofiles
+set undofile
+set undolevels=99999
+set undolevels=10000
+"set backup                                    " 生成备份文件
+"set backupdir=~/.vim_bak                       " 备份文件位置
+
 set background=dark                          " 背景使用黑色
 set showcmd                                   " 输入的命令显示出来，看的清楚些
 set novisualbell                              " 不要闪烁
 set nocompatible                              " 去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限
 set viminfo='1000,<800                        " 设置粘贴行数
-set nobackup                                  " 生成备份文件
-set backupdir=/tmp                            " 备份文件位置
 set swapfile                                  " 崩溃时生成.swp文件
 set autoread                                  " 设置当文件被改动时自动载入
 set completeopt=preview,menu                  " 代码补全
@@ -722,7 +727,7 @@ let g:ycm_seed_identifiers_with_syntax=1
 " 修改对C函数的补全快捷键，默认是CTRL + space，修改为ALT + ;
 let g:ycm_key_invoke_completion = '<M-;>'
 " 设置转到定义处的快捷键为ALT + G，这个功能非常赞
-""nmap <M-g> :YcmCompleter GoToDefinitionElseDeclaration <C-R>=expand("<cword>")<CR><CR>
+nmap <M-g> :YcmCompleter GoToDefinitionElseDeclaration <C-R>=expand("<cword>")<CR><CR>
 nnoremap <C-\> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 let g:ycm_goto_buffer_command = 'horizontal-split'
