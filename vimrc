@@ -5,7 +5,6 @@ syntax off
 call plug#begin()
 
 "Plug 'maksimr/vim-jsbeautify'
-"Plug 'Shougo/neocomplete.vim'
 "Plug 'ervandew/supertab'
 "Plug 'Lokaltog/vim-powerline'
 "Plug 'vim-scripts/xptemplate'
@@ -33,7 +32,9 @@ call plug#begin()
 "Plug 'python-mode/python-mode', {'on': []}
 "Plug 'botvs/VimBotVS', {'on': []}
 "Plug 'mhinz/vim-startify', {'on': 'Startify'}
+" Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
 
+Plug 'posva/vim-vue'
 Plug 'liuchengxu/space-vim-dark'
 Plug 'flazz/vim-colorschemes'
 Plug 'vim-airline/vim-airline'
@@ -42,7 +43,9 @@ Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'powerline/fonts', {'do': './install.sh', 'on': []}
 Plug 'w0rp/ale'
-Plug 'Valloric/YouCompleteMe', {'do': './install.py' , 'on': []}
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 
 call plug#end()            " required
 
@@ -69,7 +72,7 @@ function! Load_Airline(timer) abort
   call plug#load('vim-airline-themes')
 endfunction
 
-call timer_start(100, 'Load_Ycm')
+" call timer_start(100, 'Load_Ycm')
 " call timer_start(100, 'Load_Ale')
 " call timer_start(100, 'Load_Airline')
 
@@ -157,6 +160,9 @@ set cmdheight=1                               " 命令行（在状态行下）�
 set noerrorbells                              " 错误信息响铃
 set novisualbell                              " 使用可视响铃代替鸣叫
 set t_vb=                                     " 既不想要响铃也不想要闪烁,
+set textwidth=80                              " 文字宽度
+set colorcolumn=81                            " 显示竖线
+hi ColorColumn guibg=#000000 ctermbg=0        
 
 " 我的状态行显示的内容（包括文件类型和解码）
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
@@ -735,6 +741,12 @@ nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" deoplete
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:deoplete#enable_at_startup = 1
+" call deoplete#enable()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ale
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_completion_enabled = 1
@@ -775,7 +787,7 @@ let g:ale_pattern_options_enabled = 1
 let g:ale_fix_on_save = 0
 let g:ale_python_flake8_args="--ignore=E501,C901,E121"
 "let g:ale_python_pylint_options="--disable=C0111,C0103,R0902,W0703,C0321"
-let g:ale_python_pylint_options="--disable=C,R,W0703,W0217"
+let g:ale_python_pylint_options="--disable=C,R,W0703,W0217,W0212"
 let g:ale_python_autopep8_options="--ignore=E501"
 
 "   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
