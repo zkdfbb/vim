@@ -160,8 +160,8 @@ set cmdheight=1                               " 命令行（在状态行下）�
 set noerrorbells                              " 错误信息响铃
 set novisualbell                              " 使用可视响铃代替鸣叫
 set t_vb=                                     " 既不想要响铃也不想要闪烁,
-set textwidth=80                              " 文字宽度
-set colorcolumn=81                            " 显示竖线
+set textwidth=100                             " 文字宽度
+set colorcolumn=101                           " 显示竖线
 hi ColorColumn guibg=#000000 ctermbg=0        
 
 " 我的状态行显示的内容（包括文件类型和解码）
