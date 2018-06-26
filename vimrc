@@ -43,9 +43,9 @@ Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'powerline/fonts', {'do': './install.sh', 'on': []}
 Plug 'w0rp/ale'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'Shougo/deoplete.nvim', {'on': []}
+Plug 'roxma/nvim-yarp', {'on': []}
+Plug 'roxma/vim-hug-neovim-rpc', {'on': []}
 
 call plug#end()            " required
 
@@ -63,6 +63,12 @@ function! Load_Ycm(timer) abort
   call plug#load('YouCompleteMe')
 endfunction
 
+function! Load_Deoplete(timer) abort
+  call plug#load('nvim-yarp')
+  call plug#load('vim-hug-neovim-rpc')
+  call plug#load('deoplete.nvim')
+endfunction
+
 function! Load_Pymode(timer) abort
   call plug#load('python-mode')
 endfunction
@@ -72,6 +78,7 @@ function! Load_Airline(timer) abort
   call plug#load('vim-airline-themes')
 endfunction
 
+call timer_start(100, 'Load_Deoplete')
 " call timer_start(100, 'Load_Ycm')
 " call timer_start(100, 'Load_Ale')
 " call timer_start(100, 'Load_Airline')
