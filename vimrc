@@ -257,7 +257,7 @@ func SetPython()
 endfunc
 
 "读入html，javascript, css，less文件，设置缩进格式
-autocmd BufNewFile,BufRead *.html,*.js,*.css,*.less exec ":call SetIntent()"
+autocmd BufNewFile,BufRead *.html,*.js,*.css,*.less,*.yaml,*.yml exec ":call SetIntent()"
 func SetIntent()
     set tabstop=2
     set softtabstop=2
@@ -366,12 +366,12 @@ func SetTitle()
 
     if &filetype == 'python'
         call append(0, "\#!/usr/bin/env python")
-        call append(1, "\# -*- coding:utf-8 -*-")
+        call append(1, "\# -*- coding: utf-8 -*-")
         call append(2, "")
 
     elseif &filetype == 'sh'
         call append(0, "\#!/usr/bin/env bash")
-        call append(1, "\# -*- coding:utf-8 -*-")
+        call append(1, "\# -*- coding: utf-8 -*-")
         call append(2, "")
 
     elseif &filetype == 'cpp'
@@ -793,8 +793,8 @@ let g:ale_pattern_options = {
 let g:ale_pattern_options_enabled = 1
 let g:ale_fix_on_save = 0
 let g:ale_python_flake8_args="--ignore=E501,C901,E121"
-"let g:ale_python_pylint_options="--disable=C0111,C0103,R0902,W0703,C0321"
-let g:ale_python_pylint_options="--disable=C,R,W0703,W0217,W0212"
+" http://pylint-messages.wikidot.com/all-codes
+let g:ale_python_pylint_options="--disable=C,R,W0703,W0217,W0212,W0201,C0321"
 let g:ale_python_autopep8_options="--ignore=E501"
 
 "   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
