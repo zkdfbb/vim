@@ -46,6 +46,7 @@ Plug 'w0rp/ale'
 Plug 'Shougo/deoplete.nvim', {'on': []}
 Plug 'roxma/nvim-yarp', {'on': []}
 Plug 'roxma/vim-hug-neovim-rpc', {'on': []}
+Plug 'metakirby5/codi.vim'
 
 call plug#end()            " required
 
@@ -169,7 +170,7 @@ set novisualbell                              " 使用可视响铃代替鸣叫
 set t_vb=                                     " 既不想要响铃也不想要闪烁,
 set textwidth=100                             " 文字宽度
 set colorcolumn=101                           " 显示竖线
-hi ColorColumn guibg=#000000 ctermbg=0        
+hi ColorColumn guibg=#000000 ctermbg=0
 
 " 我的状态行显示的内容（包括文件类型和解码）
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
@@ -406,14 +407,17 @@ func SetTitle()
     elseif &filetype == 'html'
         call append(0,'<!DOCTYPE html>')
         call append(1,'<html lang="zh_CN">')
-        call append(2,'<head>')
-        call append(3,'<meta charset="utf-8">')
-        call append(4,'<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">')
-        call append(5,'<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">')
-        call append(6,'<title></title>')
-        call append(7,'</head>')
-        call append(8,'<body>')
+        call append(2,'')
+        call append(3,'<head>')
+        call append(4,'  <meta charset="utf-8">')
+        call append(5,'  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">')
+        call append(6,'  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">')
+        call append(7,'  <title></title>')
+        call append(8,'</head>')
+        call append(9,'')
+        call append(10,'<body>')
         call append(line('$'),'</body>')
+        call append(line('$'),'')
         call append(line('$'),'</html>')
 
     endif
@@ -783,8 +787,7 @@ nmap <Leader>d :ALEDetail<CR>
 " http://pylint-messages.wikidot.com/all-codes
 let g:ale_lint_on_enter = 1
 let g:ale_lint_on_text_changed = 1
-let g:ale_linters = { 'python': ['flake8', 'pylint'] }
-let g:ale_linters = { 'python': ['flake8', 'pylint'] , 'javascript': ['eslint']}
+let g:ale_linters = { 'python': ['flake8'] , 'javascript': ['eslint']}
 let b:ale_fixers = {'python': ['autopep8', 'yapf', 'remove_trailing_lines', 'trim_whitespace'], 'javascript': ['eslint']}
 let g:ale_pattern_options = {
 \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
@@ -793,8 +796,9 @@ let g:ale_pattern_options = {
 let g:ale_pattern_options_enabled = 1
 let g:ale_fix_on_save = 0
 let g:ale_python_flake8_args="--ignore=E501,C901,E121"
+let g:ale_python_flake8_options="--ignore=E501,E228,E226,E261,E266,E128,E402,W503,E722,F401,E704,F841,F403 --max-line-length=248"
 " http://pylint-messages.wikidot.com/all-codes
-let g:ale_python_pylint_options="--disable=C,R,W0703,W0217,W0212,W0201,C0321"
+let g:ale_python_pylint_options="--disable=C,R,W0703,W0217,W0212,W0201,C0321,W0621,W0622,W0623 --ignored-modules=np,torch,tensorflow"
 let g:ale_python_autopep8_options="--ignore=E501"
 
 "   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -830,8 +834,8 @@ let g:ale_python_autopep8_options="--ignore=E501"
 "   let g:LookupFile_PreservePatternHistory = 1     "保存查找历史
 "   let g:LookupFile_AlwaysAcceptFirst = 1          "回车打开第一个匹配项目
 "   let g:LookupFile_AllowNewFiles = 0              "不允许创建不存在的文件
-"   "if filereadable("./filenametags")                "设置tag文件的名字
-"   "let g:LookupFile_TagExpr = '"./filenametags"'
+"   if filereadable("./filenametags")                "设置tag文件的名字
+"   let g:LookupFile_TagExpr = '"./filenametags"'
 "   "endif
 "   "映射LookupFile为,lk
 "   nmap <silent> <leader>lk :LUTags<cr>
@@ -848,8 +852,8 @@ let g:ale_python_autopep8_options="--ignore=E501"
 "           let newpattern = '\c' . a:pattern
 "           let tags = taglist(newpattern)
 "       catch
-"           echohl ErrorMsg | echo "Exception: " . v:exception | echohl NONE
-"           return ""
+"           echohl ErrorMsg | echo 'Exception: ' . v:exception | echohl NONE
+"           return ''
 "       finally
 "           let &tags = _tags
 "       endtry
@@ -873,7 +877,7 @@ let g:ale_python_autopep8_options="--ignore=E501"
 "   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   " markdown-preview
 "   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   let g:mkdp_path_to_chrome = "google-chrome"
+"   let g:mkdp_path_to_chrome = 'google-chrome'
 "   let g:mkdp_auto_start = 0
 "   let g:mkdp_auto_open = 0
 "   let g:mkdp_auto_close = 1
@@ -895,7 +899,7 @@ let g:ale_python_autopep8_options="--ignore=E501"
 "   let g:airline#extensions#tabline#left_alt_sep = '|'
 "   let g:airline#extensions#whitespace#enabled = 0
 "   let g:airline#extensions#whitespace#symbol = '!'
-"   
+"
 "   let g:airline_theme="molokai"
 "   let g:airline_powerline_fonts = 1
 "   let g:airline_left_sep = '⮀'
