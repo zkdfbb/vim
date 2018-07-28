@@ -168,7 +168,7 @@ set cmdheight=1                               " 命令行（在状态行下）�
 set noerrorbells                              " 错误信息响铃
 set novisualbell                              " 使用可视响铃代替鸣叫
 set t_vb=                                     " 既不想要响铃也不想要闪烁,
-set textwidth=100                             " 文字宽度
+" set textwidth=100                             " 文字宽度
 set colorcolumn=101                           " 显示竖线
 hi ColorColumn guibg=#000000 ctermbg=0
 
@@ -795,10 +795,10 @@ let g:ale_pattern_options = {
 \}
 let g:ale_pattern_options_enabled = 1
 let g:ale_fix_on_save = 0
-let g:ale_python_flake8_args="--ignore=E501,C901,E121"
-let g:ale_python_flake8_options="--ignore=E501,E228,E226,E261,E266,E128,E402,W503,E722,F401,E704,F841,F403 --max-line-length=248"
+" http://flake8.pycqa.org/en/latest/user/error-codes.html
+let g:ale_python_flake8_options="--ignore=E501,E228,E226,E261,E266,E128,E402,W503"
 " http://pylint-messages.wikidot.com/all-codes
-let g:ale_python_pylint_options="--disable=C,R,W0703,W0217,W0212,W0201,C0321,W0621,W0622,W0623 --ignored-modules=np,torch,tensorflow"
+let g:ale_python_pylint_options="--disable=C,R,W0703,W0217,W0212,W0201,C0321,W0621,W0622,W0623 --ignored-classes=np,torch --ignored-modules=np,torch"
 let g:ale_python_autopep8_options="--ignore=E501"
 
 "   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
